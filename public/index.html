@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Countries</title>
+    <script src="js/bundle.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Countries</h1>
+      <p>There are {{worldPopulation}} in total on this planet.</p>
+
+
+        <select v-model="selectedCountry">
+         <option v-for="country in countries" v-bind:value="country">{{country.name}}</option>
+        </select>
+
+        <button v-if="selectedCountry != null" type="button" v-on:click="addToFavourites()">Add to favouriteCountries</button>
+
+
+      <div v-if="selectedCountry != null">
+        <h2>{{ selectedCountry.name }}</h2>
+        <img v-bind:src="selectedCountry.flag" width="300px">
+        <p>Region: {{ selectedCountry.region }}</p>
+        <p>Population:  {{ selectedCountry.population }}</p>
+        <p>Bordering countries:</p>
+        <ul>
+          <li v-for="countryCode in selectedCountry.borders">{{ getCountryFromCountryCode(countryCode).name }} - Population: {{ getCountryFromCountryCode(countryCode).population }}</li>
+        </ul>
+      </div>
+
+      <h2>Favourite Countries:</h2>
+      <ul v-if="favouriteCountries.length>0" id="favoutite-countries">
+          <li v-for="country in favouriteCountries">{{country.name}}</li>
+      </ul>
+
+    </div>
+  </body>
+</html>
